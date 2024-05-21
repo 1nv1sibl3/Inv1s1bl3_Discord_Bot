@@ -1,10 +1,8 @@
 # Inv1s1bl3_Discord_Bot
-For Educational Use Only.. Bot is under development
+For Educational Use Only.. Bot is 75% complete!
 
-Developed by Inv1s1bl3#7047 
+Developed byinv1s1bl3
 
 BOT ID : Inv1s1bl3#3606
 
-# Note: Bot is under development many functions are under development
-
-Bot is half way done..Soon all the code would be pushed to this respository..With some major changes..
+Bot is 75%..Soon i will publish whole code to this respository..With some major changes..
