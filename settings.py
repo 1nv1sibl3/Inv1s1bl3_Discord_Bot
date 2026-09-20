@@ -1,14 +1,10 @@
-import os
+"""
+Legacy settings compatibility wrapper.
+Delegates to modern src.config.settings.
+"""
+from src.config.settings import settings
 
-DEBUG = os.getenv("DEBUG", True)
-
-if DEBUG:
-    print("We are in debug")
-    from pathlib import Path
-    from dotenv import load_dotenv
-    env_path = Path(".") / ".env.debug"
-    load_dotenv(dotenv_path=env_path)
-    from settings_files.development import *
-else:
-    print("We are in production")
-    from settings_files.production import *
+DEBUG = settings.is_development
+DEFAULT_PREFIX = settings.default_prefix
+DISCORD_TOKEN = settings.discord_token
+DATABASE_URL = settings.database_url

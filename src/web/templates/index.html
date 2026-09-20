@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}Inv1s1bl3 Bot — Modern Open-Source Discord Bot{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <div class="hero-badge">Revived Legacy Open-Source Project</div>
+  <h1 class="hero-title">Powerful Discord Utilities & Economy.<br><span>Preserved & Modernized.</span></h1>
+  <p class="hero-desc">
+    Inv1s1bl3 Bot was originally built 4 years ago as an ambitious learning project.
+    Now revived and modernized with discord.py, SQLAlchemy 2.0, and a sleek web management dashboard.
+  </p>
+  <div class="hero-actions">
+    {% if session.get('user') %}
+      <a href="{{ url_for('main.dashboard') }}" class="btn btn-brand">Open Dashboard</a>
+      <a href="{{ url_for('main.servers') }}" class="btn btn-secondary">Manage Servers</a>
+    {% else %}
+      <a href="{{ url_for('auth.login') }}" class="btn btn-brand">Login with Discord</a>
+      <a href="{{ bot_invite_url }}" target="_blank" rel="noopener" class="btn btn-secondary">Invite to Server</a>
+    {% endif %}
+  </div>
+</section>
+
+<!-- Feature Showcase -->
+<div class="grid-3">
+  <div class="card">
+    <div style="font-size: 2rem; margin-bottom: 0.5rem;">🪙</div>
+    <h3 class="card-title">Virtual Economy & Levels</h3>
+    <p style="color: var(--text-muted); font-size: 0.95rem;">
+      Chat-based XP progression, global leaderboards, virtual banking with daily stipends, and an interactive item marketplace.
+    </p>
+  </div>
+
+  <div class="card">
+    <div style="font-size: 2rem; margin-bottom: 0.5rem;">🏢</div>
+    <h3 class="card-title">Enterprise Simulation</h3>
+    <p style="color: var(--text-muted); font-size: 0.95rem;">
+      Incorporate companies, launch product lines, hire workers, and manage automated production cycles and sales.
+    </p>
+  </div>
+
+  <div class="card">
+    <div style="font-size: 2rem; margin-bottom: 0.5rem;">🎮</div>
+    <h3 class="card-title">Community Parlor Games</h3>
+    <p style="color: var(--text-muted); font-size: 0.95rem;">
+      Guess A Word (GAW) wordplay, Rock Paper Scissors, Word Unscramble, Magic 8-Ball, and cooperative counting games.
+    </p>
+  </div>
+
+  <div class="card">
+    <div style="font-size: 2rem; margin-bottom: 0.5rem;">🛡️</div>
+    <h3 class="card-title">Native Moderation</h3>
+    <p style="color: var(--text-muted); font-size: 0.95rem;">
+      Kick, ban, unban, native Discord timeouts, channel locks, bulk message purge, and prefix configuration.
+    </p>
+  </div>
+
+  <div class="card">
+    <div style="font-size: 2rem; margin-bottom: 0.5rem;">⚙️</div>
+    <h3 class="card-title">Multi-Database Engine</h3>
+    <p style="color: var(--text-muted); font-size: 0.95rem;">
+      Runs on SQLite for zero-config local development, with native async support for PostgreSQL and MySQL/MariaDB.
+    </p>
+  </div>
+
+  <div class="card">
+    <div style="font-size: 2rem; margin-bottom: 0.5rem;">📊</div>
+    <h3 class="card-title">Web Management Portal</h3>
+    <p style="color: var(--text-muted); font-size: 0.95rem;">
+      Configure custom server prefixes, welcome and leave announcements, and bot preferences directly from this web portal.
+    </p>
+  </div>
+</div>
+{% endblock %}

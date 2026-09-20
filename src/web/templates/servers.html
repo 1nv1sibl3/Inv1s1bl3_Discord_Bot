@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}Select Server — Inv1s1bl3 Bot{% endblock %}
+
+{% block content %}
+<div style="margin-bottom: 2rem;">
+  <h1 style="font-size: 2rem; font-weight: 800; color: var(--text-white);">Select a Server</h1>
+  <p style="color: var(--text-muted);">Choose a server to configure prefix, welcome messages, and moderation settings.</p>
+</div>
+
+<!-- Servers with Management Permissions -->
+<div style="margin-bottom: 3rem;">
+  <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+    <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--text-white);">
+      ⚙️ Manageable Servers <span style="font-size: 0.9rem; color: var(--success); font-weight: 500;">({{ manageable_servers|length }})</span>
+    </h2>
+  </div>
+
+  {% if manageable_servers %}
+    <div class="server-grid">
+      {% for server in manageable_servers %}
+        <div class="server-card">
+          {% if server.icon %}
+            <img src="https://cdn.discordapp.com/icons/{{ server.id }}/{{ server.icon }}.png?size=128" alt="{{ server.name }}" class="server-icon">
+          {% else %}
+            <div class="server-icon">{{ server.name[:2].upper() }}</div>
+          {% endif %}
+          <div class="server-details">
+            <div class="server-name" title="{{ server.name }}">{{ server.name }}</div>
+            <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem; flex-wrap: wrap;">
+              <a href="{{ url_for('main.guild_manage', guild_id=server.id) }}" class="btn btn-brand btn-sm">Configure</a>
+              <a href="{{ server.invite_url }}" target="_blank" rel="noopener" class="btn btn-outline btn-sm">Invite Bot</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="card" style="text-align: center; padding: 2.5rem;">
+      <p style="color: var(--text-muted); font-size: 1.05rem;">You do not currently have Administrator or Manage Server permissions in any server.</p>
+    </div>
+  {% endif %}
+</div>
+
+<!-- Other Servers (Member Only) -->
+<div>
+  <div style="margin-bottom: 1rem;">
+    <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--text-muted);">
+      👥 Other Mutual Servers <span style="font-size: 0.9rem; font-weight: 500;">({{ other_servers|length }})</span>
+    </h2>
+    <p style="font-size: 0.85rem; color: var(--text-muted);">Servers where you are a member but lack management permissions.</p>
+  </div>
+
+  {% if other_servers %}
+    <div class="server-grid">
+      {% for server in other_servers %}
+        <div class="server-card" style="opacity: 0.75;">
+          {% if server.icon %}
+            <img src="https://cdn.discordapp.com/icons/{{ server.id }}/{{ server.icon }}.png?size=128" alt="{{ server.name }}" class="server-icon">
+          {% else %}
+            <div class="server-icon">{{ server.name[:2].upper() }}</div>
+          {% endif %}
+          <div class="server-details">
+            <div class="server-name" title="{{ server.name }}">{{ server.name }}</div>
+            <span style="font-size: 0.75rem; color: var(--text-muted); background: var(--bg-hover); padding: 0.2rem 0.5rem; border-radius: var(--radius-sm);">Member Only</span>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

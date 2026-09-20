@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block title %}Manage {{ guild['name'] }} — Inv1s1bl3 Bot{% endblock %}
+
+{% block content %}
+<div style="margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+  <div style="display: flex; align-items: center; gap: 1rem;">
+    {% if guild['icon'] %}
+      <img src="https://cdn.discordapp.com/icons/{{ guild['id'] }}/{{ guild['icon'] }}.png?size=128" alt="{{ guild['name'] }}" style="width: 64px; height: 64px; border-radius: 50%;">
+    {% else %}
+      <div style="width: 64px; height: 64px; border-radius: 50%; background: var(--bg-secondary); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700; color: var(--text-white);">
+        {{ guild['name'][:2].upper() }}
+      </div>
+    {% endif %}
+    <div>
+      <h1 style="font-size: 1.8rem; font-weight: 800; color: var(--text-white); margin-bottom: 0.2rem;">{{ guild['name'] }}</h1>
+      <p style="color: var(--text-muted); font-size: 0.85rem;">Server ID: <code>{{ guild['id'] }}</code></p>
+    </div>
+  </div>
+  <a href="{{ url_for('main.servers') }}" class="btn btn-outline btn-sm">← Back to Servers</a>
+</div>
+
+<div class="card" style="max-width: 800px; margin: 0 auto;">
+  <h2 class="card-title">Server Settings & Preferences</h2>
+  <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 2rem;">
+    Configure the bot's behavior in your server. Changes take effect immediately.
+  </p>
+
+  <form method="POST" action="{{ url_for('main.guild_manage', guild_id=guild['id']) }}">
+    <!-- Command Prefix -->
+    <div class="form-group">
+      <label class="form-label" for="prefix">Command Prefix</label>
+      <input type="text" id="prefix" name="prefix" class="form-control" style="max-width: 150px;" value="{{ cfg.prefix or 'i.' }}" maxlength="5" required>
+      <span class="form-hint">The prefix used before text commands (e.g. <code>!</code>, <code>?</code>, <code>i.</code>). Slash commands will always work!</span>
+    </div>
+
+    <hr style="border: none; border-top: 1px solid var(--border-color); margin: 2rem 0;">
+
+    <!-- Welcome Settings -->
+    <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--text-white); margin-bottom: 1rem;">👋 Welcome Announcements</h3>
+    <div class="form-group">
+      <label class="toggle-label">
+        <input type="checkbox" name="welcome_enabled" {% if cfg.welcome_enabled %}checked{% endif %}>
+        <span style="font-weight: 600; color: var(--text-white);">Enable Welcome Messages</span>
+      </label>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="welcome_channel_id">Welcome Channel ID</label>
+      <input type="text" id="welcome_channel_id" name="welcome_channel_id" class="form-control" placeholder="e.g. 1023924759379066900" value="{{ cfg.welcome_channel_id or '' }}">
+      <span class="form-hint">The numerical ID of the Discord text channel where greetings should be dispatched.</span>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="welcome_message">Welcome Message Format</label>
+      <textarea id="welcome_message" name="welcome_message" class="form-control" rows="3" placeholder="Welcome {user} to {server}!">{{ cfg.welcome_message or '' }}</textarea>
+      <span class="form-hint">Placeholders supported: <code>{user}</code> and <code>{server}</code>.</span>
+    </div>
+
+    <hr style="border: none; border-top: 1px solid var(--border-color); margin: 2rem 0;">
+
+    <!-- Leave Settings -->
+    <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--text-white); margin-bottom: 1rem;">🚪 Farewell Announcements</h3>
+    <div class="form-group">
+      <label class="toggle-label">
+        <input type="checkbox" name="leave_enabled" {% if cfg.leave_enabled %}checked{% endif %}>
+        <span style="font-weight: 600; color: var(--text-white);">Enable Farewell Messages</span>
+      </label>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="leave_channel_id">Farewell Channel ID</label>
+      <input type="text" id="leave_channel_id" name="leave_channel_id" class="form-control" placeholder="e.g. 1023924759379066900" value="{{ cfg.leave_channel_id or '' }}">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="leave_message">Farewell Message Format</label>
+      <textarea id="leave_message" name="leave_message" class="form-control" rows="3" placeholder="Goodbye {user}, thanks for stopping by!">{{ cfg.leave_message or '' }}</textarea>
+    </div>
+
+    <div style="margin-top: 2.5rem; display: flex; gap: 1rem;">
+      <button type="submit" class="btn btn-brand">Save Configuration</button>
+      <a href="{{ url_for('main.servers') }}" class="btn btn-secondary">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,72 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "inv1s1bl3-bot"
+version = "2.0.0"
+description = "A modernized, open-source revival of the Inv1s1bl3 Discord Bot originally built 4 years ago."
+readme = "README.md"
+authors = [
+    { name = "Inv1s1bl3", email = "dev@example.com" }
+]
+license = { text = "MIT" }
+requires-python = ">=3.10"
+keywords = ["discord", "discord-bot", "flask", "sqlalchemy", "open-source", "legacy"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Web Environment",
+    "Framework :: AsyncIO",
+    "Framework :: Flask",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Communications :: Chat",
+]
+dependencies = [
+    "discord.py>=2.3.0",
+    "SQLAlchemy>=2.0.0",
+    "aiosqlite>=0.19.0",
+    "asyncpg>=0.28.0",
+    "aiomysql>=0.2.0",
+    "alembic>=1.12.0",
+    "Flask>=3.0.0",
+    "python-dotenv>=1.0.0",
+    "aiohttp>=3.9.0",
+    "psutil>=5.9.0",
+    "requests>=2.31.0",
+    "pytz>=2023.3",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-asyncio>=0.21.0",
+    "ruff>=0.1.0",
+]
+
+[project.scripts]
+inv1s1bl3-bot = "src.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra -q"
+testpaths = ["tests"]
+pythonpath = ["."]
+asyncio_mode = "auto"

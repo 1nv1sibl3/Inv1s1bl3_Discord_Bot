@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard — Inv1s1bl3 Bot{% endblock %}
+
+{% block content %}
+<div style="margin-bottom: 2rem;">
+  <h1 style="font-size: 2rem; font-weight: 800; color: var(--text-white);">Welcome, {{ user['global_name'] }}!</h1>
+  <p style="color: var(--text-muted);">Manage your servers and explore your bot status.</p>
+</div>
+
+<!-- Stats Row -->
+<div class="grid-3" style="margin-top: 0;">
+  <div class="card">
+    <div style="color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; font-weight: 700;">Mutual Guilds</div>
+    <div style="font-size: 2.2rem; font-weight: 800; color: var(--text-white); margin: 0.5rem 0;">{{ total_guilds }}</div>
+    <p style="font-size: 0.9rem; color: var(--text-muted);">Discord servers you belong to</p>
+  </div>
+
+  <div class="card">
+    <div style="color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; font-weight: 700;">Manageable Guilds</div>
+    <div style="font-size: 2.2rem; font-weight: 800; color: var(--success); margin: 0.5rem 0;">{{ manageable_count }}</div>
+    <p style="font-size: 0.9rem; color: var(--text-muted);">Servers where you have Admin / Manage Server</p>
+  </div>
+
+  <div class="card">
+    <div style="color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; font-weight: 700;">Bot Version</div>
+    <div style="font-size: 2.2rem; font-weight: 800; color: var(--brand); margin: 0.5rem 0;">v{{ app_version }}</div>
+    <p style="font-size: 0.9rem; color: var(--text-muted);">Modernized Discord.py & SQLAlchemy</p>
+  </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="card" style="margin-top: 2rem;">
+  <h3 class="card-title">Quick Actions</h3>
+  <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1rem;">
+    <a href="{{ url_for('main.servers') }}" class="btn btn-brand">Configure Servers</a>
+    <a href="{{ url_for('main.profile') }}" class="btn btn-secondary">View Profile & Balance</a>
+    <a href="{{ bot_invite_url }}" target="_blank" rel="noopener" class="btn btn-outline">Invite to Another Server</a>
+    {% if support_server_url %}
+      <a href="{{ support_server_url }}" target="_blank" rel="noopener" class="btn btn-outline">Join Support Discord</a>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,77 @@
+# Environment variables
+.env
+.env.debug
+.env.prod
+.env.local
+.env.*.local
+
+# Python bytecode and cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Distribution and packaging
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+env.bak/
+venv.bak/
+
+# Local databases and runtime data
+*.db
+*.sqlite
+*.sqlite3
+data/
+*.rdb
+
+# Logs
+*.log
+logs/
+
+# SSL / TLS certificates and private keys
+*.crt
+*.key
+*.pem
+*.pfx
+
+# Testing and coverage
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+htmlcov/
+
+# Editor and IDE configurations
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db

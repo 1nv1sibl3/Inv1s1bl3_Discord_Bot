@@ -1,14 +1,9 @@
-import os
+#!/usr/bin/env python3
+"""
+Inv1s1bl3 Bot Legacy Root Entrypoint.
+Delegates to the modern src module.
+"""
+from src.__main__ import main
 
-from discord.ext import commands
-from discord import Intents
-
-from settings import *
-from webserver import keep_alive
-bot = commands.Bot(command_prefix="i.", intents=Intents.all())
-
-for filename in os.listdir("./cogs"):
-    if filename.endswith(".py") and filename != "__init__.py":
-        bot.load_extension(f'cogs.{filename[:-3]}')
-
-bot.run(BOT_TOKEN)
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Inv1s1bl3 Bot{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/bot_profile.png') }}">
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="{{ url_for('main.index') }}" class="nav-brand">
+        <span>Inv1s1bl3</span>
+        <span class="nav-brand-badge">Legacy v{{ app_version }}</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="{{ url_for('main.index') }}" class="nav-link">Home</a></li>
+        {% if session.get('user') %}
+          <li><a href="{{ url_for('main.dashboard') }}" class="nav-link">Dashboard</a></li>
+          <li><a href="{{ url_for('main.servers') }}" class="nav-link">Manage Servers</a></li>
+          <li><a href="{{ url_for('main.profile') }}" class="nav-link">Profile</a></li>
+        {% endif %}
+        {% if support_server_url %}
+          <li><a href="{{ support_server_url }}" target="_blank" rel="noopener" class="nav-link">Support</a></li>
+        {% endif %}
+
+        {% if session.get('user') %}
+          <li>
+            <div class="user-pill">
+              {% if session['user']['avatar'] %}
+                <img src="https://cdn.discordapp.com/avatars/{{ session['user']['id'] }}/{{ session['user']['avatar'] }}.png?size=64" alt="Avatar" class="user-avatar">
+              {% else %}
+                <div class="user-avatar" style="background:#5865f2; display:flex; align-items:center; justify-content:center; color:#fff; font-size:12px;">{{ session['user']['username'][0].upper() }}</div>
+              {% endif %}
+              <span style="font-weight:600; font-size:0.9rem;">{{ session['user']['global_name'] }}</span>
+            </div>
+          </li>
+          <li><a href="{{ url_for('auth.logout') }}" class="btn btn-outline btn-sm">Logout</a></li>
+        {% else %}
+          <li><a href="{{ url_for('auth.login') }}" class="btn btn-brand btn-sm">Login with Discord</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Flash Messages -->
+  <div class="main-wrapper">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-container">
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category if category != 'error' else 'danger' }}">
+              {{ message }}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <!-- Content Block -->
+    {% block content %}{% endblock %}
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div style="max-width:1200px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+      <div>
+        <p><strong>Inv1s1bl3 Bot</strong> — Revived & Modernized Open-Source Legacy Project</p>
+        <p style="font-size:0.8rem; margin-top:0.25rem;">Built with discord.py, Flask, and SQLAlchemy 2.0.</p>
+      </div>
+      <div style="display:flex; gap:1.5rem;">
+        <a href="{{ bot_invite_url }}" target="_blank" rel="noopener">Invite Bot</a>
+        <a href="{{ support_server_url }}" target="_blank" rel="noopener">Support</a>
+        <a href="https://github.com" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

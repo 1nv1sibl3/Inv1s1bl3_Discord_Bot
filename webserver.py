@@ -1,15 +1,11 @@
-from flask import Flask
-from threading import Thread
+"""
+Legacy webserver compatibility wrapper.
+Delegates to modern src.web dashboard application.
+"""
+from src.web.app import create_app
 
-app = Flask('')
+app = create_app()
 
-@app.route('/')
-def main():
-  return "Your Bot Is Ready"
-
-def run():
-  app.run(host="0.0.0.0", port=8000)
-
-def keep_alive():
-    server = Thread(target=run)
-    server.start()
+if __name__ == "__main__":
+    from src.config.settings import settings
+    app.run(host=settings.dashboard_host, port=settings.dashboard_port)
